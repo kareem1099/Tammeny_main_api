@@ -1,19 +1,5 @@
-[build]
-builder = "nix"
-
-[build.nix]
-packages = [
-  "python39",
-  "python39Packages.fastapi",
-  "python39Packages.uvicorn",
-  "python39Packages.pillow",
-  "python39Packages.numpy",
-  "python39Packages.pytorch",
-  "python39Packages.torchvision",
-  "python39Packages.tensorflow",
-  "python39Packages.opencv4",
-  "python39Packages.pip"
-]
+[phases]
+setup = { nixPkgs = ["python3.10"] }
 
 [start]
-cmd = "uvicorn Tammeny_Mainapi:app --host 0.0.0.0 --port $PORT"
+cmd = "python Tammeny_Mainapi.py"
