@@ -1,5 +1,32 @@
-[phases]
-setup = { nixPkgs = ["python3.10"] }
+[phases.setup]
+nixPkgs = [
+  "python39", 
+  "python39Packages.pip", 
+  "gcc", 
+  "binutils", 
+  "glib", 
+  "libGL", 
+  "xorg.libSM", 
+  "xorg.libICE", 
+  "xorg.libX11", 
+  "xorg.libXext", 
+  "xorg.libXrender", 
+  "zlib"
+]
+
+[phases.install]
+cmds = [
+  "pip install --no-cache-dir numpy",
+  
+  "pip install --no-cache-dir fastapi uvicorn python-multipart",
+  
+  "pip install --no-cache-dir --no-deps pillow opencv-python-headless gdown",
+  
+  "pip install --no-cache-dir -r requirements.txt"
+]
 
 [start]
-cmd = "python Tammeny_Mainapi.py"
+cmd = "uvicorn Tammeny_Mainapi:app --host 0.0.0.0 --port $PORT"
+
+[variables]
+OMP_NUM_THREADS = "1"
