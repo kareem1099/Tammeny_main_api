@@ -1,32 +1,19 @@
-[phases.setup]
-nixPkgs = [
-  "python39", 
-  "python39Packages.pip", 
-  "gcc", 
-  "binutils", 
-  "glib", 
-  "libGL", 
-  "xorg.libSM", 
-  "xorg.libICE", 
-  "xorg.libX11", 
-  "xorg.libXext", 
-  "xorg.libXrender", 
-  "zlib"
-]
+[build]
+builder = "nix"
 
-[phases.install]
-cmds = [
-  "pip install --no-cache-dir numpy",
-  
-  "pip install --no-cache-dir fastapi uvicorn python-multipart",
-  
-  "pip install --no-cache-dir --no-deps pillow opencv-python-headless gdown",
-  
-  "pip install --no-cache-dir -r requirements.txt"
+[build.nix]
+packages = [
+  "python39",
+  "python39Packages.fastapi",
+  "python39Packages.uvicorn",
+  "python39Packages.pillow",
+  "python39Packages.numpy",
+  "python39Packages.pytorch",
+  "python39Packages.torchvision",
+  "python39Packages.tensorflow",
+  "python39Packages.opencv4",
+  "python39Packages.pip"
 ]
 
 [start]
 cmd = "uvicorn Tammeny_Mainapi:app --host 0.0.0.0 --port $PORT"
-
-[variables]
-OMP_NUM_THREADS = "1"
